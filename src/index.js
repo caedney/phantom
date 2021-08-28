@@ -1,17 +1,35 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+import { Provider } from "react-redux";
+import { createGlobalStyle } from "styled-components";
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+import store from "./store";
+
+import Dashboard from "./components/dashboard/Dashboard";
+
+const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #e5e5e5;
+    font-size: 16px;
+    line-height: 1;
+  }
+`;
+
+function App() {
+  return (
+    <Provider store={store}>
+      <GlobalStyle />
+      <Dashboard />
+    </Provider>
+  );
+}
+
+ReactDOM.render(<App />, document.getElementById("root"));
