@@ -16,10 +16,27 @@ import {
 const DashboardContainer = styled.div`
   background-color: #ffffff;
   border-radius: 16px;
-  padding: 12px 20px 16px 12px;
   border: 1px solid hsl(0, 0%, 80%);
+  height: 360px;
+  padding: 12px 20px 16px 12px;
+
+  @media ${breakpoints.mobileL} {
+    height: 400px;
+    padding: 16px 24px 24px 24px;
+  }
+
+  @media ${breakpoints.tablet} {
+    height: 480px;
+    padding: 24px 40px 32px 40px;
+  }
 
   @media ${breakpoints.laptopL} {
+    height: 540px;
+    padding: 28px 48px 40px 48px;
+  }
+
+  @media ${breakpoints.desktop} {
+    height: 600px;
     padding: 36px 60px 48px 60px;
   }
 `;
