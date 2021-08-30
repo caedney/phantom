@@ -1,45 +1,66 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
 
-import Select from "../select/Select";
-import { updateMonth, updateBorough } from "../../reducers/filterReducer";
+import Select from "../Select/Select";
+import {
+  updateMonth,
+  updateBorough,
+  updateBoroughOptions,
+} from "../../reducers/filterReducer";
+import breakpoints from "../../utils/breakpoints";
 
-const SelectContainer = styled.div`
+const FilterContainer = styled.div`
   display: flex;
   flex-basis: 100%;
+  flex-wrap: wrap;
   justify-content: space-between;
   max-width: 720px;
-  margin: 0 auto 40px;
+  margin: 0 auto 8px;
 
-  > :first-child {
-    margin-right: 10px;
-  }
-
-  > :last-child {
-    margin-left: 10px;
+  @media ${breakpoints.tablet} {
+    margin-bottom: 24px;
   }
 `;
 
-const monthOptions = [
-  { value: "jan", label: "January" },
-  { value: "feb", label: "February" },
-  { value: "mar", label: "March" },
-  { value: "apr", label: "April" },
-  { value: "may", label: "May" },
-  { value: "jun", label: "June" },
-  { value: "jul", label: "July" },
-  { value: "aug", label: "August" },
-  { value: "sep", label: "September" },
-  { value: "oct", label: "October" },
-  { value: "nov", label: "November" },
-  { value: "dec", label: "December" },
-];
+const SelectContainer = styled.div`
+  margin: 0 0 8px;
+  width: 100%;
 
-const boroughOptions = [{ value: "E09000002", label: "City of London" }];
+  @media ${breakpoints.mobileL} {
+    width: calc(50% - 8px);
+  }
 
-function Filter(props) {
+  @media ${breakpoints.laptopL} {
+    width: calc(50% - 10px);
+  }
+`;
+
+function Filter() {
   const dispatch = useDispatch();
+  const { boroughOptions, monthOptions } = useSelector(state => state.filter);
+
+  useEffect(() => {
+    async function fetchBoroughs() {
+      return await fetch(
+        "https://data.london.gov.uk/api/table/s8c9t_j4fs2?sql=SELECT DISTINCT area_name FROM dataset"
+      );
+    }
+
+    return fetchBoroughs()
+      .then(res => res.json())
+      .then(data => {
+        const options = data.rows
+          .map(row => ({
+            value: row.area_name,
+            label: row.area_name,
+          }))
+          .sort((a, b) => (a.label < b.label ? -1 : 1));
+
+        dispatch(updateBoroughOptions(options));
+      })
+      .catch(console.log);
+  }, [dispatch]);
 
   const handleUpdateMonth = selected => {
     dispatch(updateMonth(selected));
@@ -50,21 +71,23 @@ function Filter(props) {
   };
 
   return (
-    <SelectContainer>
-      <Select
-        placeholder="Select Borough..."
-        options={boroughOptions}
-        onChange={handleUpdateBorough}
-      />
-      <Select
-        placeholder="Select Month..."
-        options={monthOptions}
-        onChange={handleUpdateMonth}
-      />
-    </SelectContainer>
+    <FilterContainer>
+      <SelectContainer>
+        <Select
+          placeholder="Select Borough..."
+          options={boroughOptions}
+          onChange={handleUpdateBorough}
+        />
+      </SelectContainer>
+      <SelectContainer>
+        <Select
+          placeholder="Select Month..."
+          options={monthOptions}
+          onChange={handleUpdateMonth}
+        />
+      </SelectContainer>
+    </FilterContainer>
   );
 }
-
-Filter.propTypes = {};
 
 export default Filter;
