@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  data: [{}],
+  data: [],
+  labels: [],
+  newCases: [],
+  totalCases: [],
 };
 
 const dataReducer = createSlice({
@@ -9,11 +12,33 @@ const dataReducer = createSlice({
   initialState,
   reducers: {
     updateData: (state, { payload }) => {
-      return payload;
+      return {
+        ...state,
+        data: payload,
+      };
+    },
+    updateLabels: (state, { payload }) => {
+      return {
+        ...state,
+        labels: payload,
+      };
+    },
+    updateNewCases: (state, { payload }) => {
+      return {
+        ...state,
+        newCases: payload,
+      };
+    },
+    updateTotalCases: (state, { payload }) => {
+      return {
+        ...state,
+        totalCases: payload,
+      };
     },
   },
 });
 
-export const { updateData } = dataReducer.actions;
+export const { updateData, updateLabels, updateNewCases, updateTotalCases } =
+  dataReducer.actions;
 
 export default dataReducer.reducer;
