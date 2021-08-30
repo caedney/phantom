@@ -30,28 +30,27 @@ function Dashboard() {
   );
   const { borough, month, monthOptions } = useSelector(state => state.filter);
 
-  const reduceCases = (acc, cur) => {
-    if (acc.new.length > 12) {
-      const currentDay = Number(cur.date.split("-")[2]) - 1;
-
-      acc.new[currentDay] += Number(cur.new_cases);
-      acc.total[currentDay] += Number(cur.total_cases);
+  const reduceCases = (cases, currentCase) => {
+    if (cases.new.length > 12) {
+      const currentDay = Number(currentCase.date.split("-")[2]) - 1;
+      cases.new[currentDay] += Number(currentCase.new_cases);
+      cases.total[currentDay] += Number(currentCase.total_cases);
     } else {
-      const month = Number(cur.date.split("-")[1]) - 1;
-      const endOfMonth = dayjs(cur.date).daysInMonth();
-      const lastDay = `${cur.date.substr(0, 7)}-${endOfMonth}`;
+      const month = Number(currentCase.date.split("-")[1]) - 1;
+      const endOfMonth = dayjs(currentCase.date).daysInMonth();
+      const lastDay = `${currentCase.date.substr(0, 7)}-${endOfMonth}`;
+      cases.new[month] += Number(currentCase.new_cases);
 
-      acc.new[month] += Number(cur.new_cases);
-
-      if (cur.date === lastDay) {
-        acc.total[month] += Number(cur.total_cases);
+      if (currentCase.date === lastDay) {
+        cases.total[month] += Number(currentCase.total_cases);
       }
     }
 
-    return acc;
+    return cases;
   };
 
   useEffect(() => {
+    let currentData = data;
     let currentLabels = monthOptions.map(({ label }) => label.substr(0, 3));
 
     if (month) {
@@ -62,23 +61,21 @@ function Dashboard() {
       );
     }
 
-    const caseData =
-      month || borough
-        ? data.filter(({ area_name, date }) => {
-            if (borough && month) {
-              return (
-                borough.value === area_name &&
-                month.value.split("-")[1] === date.split("-")[1]
-              );
-            } else if (borough) {
-              return borough.value === area_name;
-            } else {
-              return month.value.split("-")[1] === date.split("-")[1];
-            }
-          })
-        : data;
+    if (borough && month) {
+      currentData = data.filter(
+        item =>
+          borough.value === item.area_name &&
+          month.value.split("-")[1] === item.date.split("-")[1]
+      );
+    } else if (borough && !month) {
+      currentData = data.filter(item => borough.value === item.area_name);
+    } else if (month && !borough) {
+      currentData = data.filter(
+        item => month.value.split("-")[1] === item.date.split("-")[1]
+      );
+    }
 
-    const reducedCases = caseData.reduce(reduceCases, {
+    const reducedCases = currentData.reduce(reduceCases, {
       new: new Array(currentLabels.length).fill(0),
       total: new Array(currentLabels.length).fill(0),
     });
