@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import styled from "styled-components";
 
 import LineChart from "../../components/LineChart/LineChart";
+import Loader from "../../components/Loader/Loader";
 import breakpoints from "../../utils/breakpoints";
 import dateFormat from "../../utils/dateFormat";
 import {
@@ -25,7 +26,7 @@ const DashboardContainer = styled.div`
 
 function Dashboard() {
   const dispatch = useDispatch();
-  const { data, labels, newCases, totalCases } = useSelector(
+  const { data, isLoading, labels, newCases, totalCases } = useSelector(
     state => state.data
   );
   const { borough, month, monthOptions } = useSelector(state => state.filter);
@@ -109,7 +110,7 @@ function Dashboard() {
 
   return (
     <DashboardContainer>
-      <LineChart data={lineChartData} />
+      {isLoading ? <Loader /> : <LineChart data={lineChartData} />}
     </DashboardContainer>
   );
 }
