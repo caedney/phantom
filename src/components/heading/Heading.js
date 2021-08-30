@@ -2,10 +2,17 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
+import breakpoints from "../../utils/breakpoints";
+
 const StyledHeading = styled.div`
-  font-size: 3rem;
-  margin-bottom: 32px;
+  font-size: 3.25rem;
+  margin-bottom: 20px;
   font-weight: 900;
+
+  @media ${breakpoints.laptopL} {
+    margin-bottom: 32px;
+    font-size: 4rem;
+  }
 `;
 
 function Heading(props) {
