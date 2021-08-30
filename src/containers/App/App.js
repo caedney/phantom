@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { csv } from "d3";
 import styled from "styled-components";
 
+import fetchAllData from "../../api/fetchAllData";
 import fetchAllBoroughs from "../../api/fetchAllBoroughs";
 import Filter from "../../components/Filter/Filter";
 import Header from "../../components/Header/Header";
 import Dashboard from "../../components/Dashboard/Dashboard";
-import { updateData } from "../../reducers/dataReducer";
+import { updateData, updateIsLoading } from "../../reducers/dataReducer";
 import { updateBoroughOptions } from "../../reducers/filterReducer";
 import breakpoints from "../../utils/breakpoints";
 
@@ -33,14 +33,19 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    csv("/data/covid-cases.csv").then(cases => {
-      dispatch(updateData(cases));
-    });
+    async function fetchData() {
+      dispatch(updateIsLoading(true));
+      const data = await fetchAllData();
+      dispatch(updateIsLoading(false));
+      dispatch(updateData(data));
+    }
+
     async function fetchBoroughs() {
       const options = await fetchAllBoroughs();
       dispatch(updateBoroughOptions(options));
     }
 
+    fetchData();
     fetchBoroughs();
   }, [dispatch]);
 
