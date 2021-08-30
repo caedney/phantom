@@ -3,10 +3,12 @@ import { useDispatch } from "react-redux";
 import { csv } from "d3";
 import styled from "styled-components";
 
+import fetchAllBoroughs from "../../api/fetchAllBoroughs";
 import Filter from "../../components/Filter/Filter";
 import Header from "../../components/Header/Header";
 import Dashboard from "../../components/Dashboard/Dashboard";
 import { updateData } from "../../reducers/dataReducer";
+import { updateBoroughOptions } from "../../reducers/filterReducer";
 import breakpoints from "../../utils/breakpoints";
 
 const AppContainer = styled.div`
@@ -34,6 +36,12 @@ function App() {
     csv("/data/covid-cases.csv").then(cases => {
       dispatch(updateData(cases));
     });
+    async function fetchBoroughs() {
+      const options = await fetchAllBoroughs();
+      dispatch(updateBoroughOptions(options));
+    }
+
+    fetchBoroughs();
   }, [dispatch]);
 
   return (

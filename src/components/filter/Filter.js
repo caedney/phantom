@@ -1,13 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import Select from "../Select/Select";
-import {
-  updateMonth,
-  updateBorough,
-  updateBoroughOptions,
-} from "../../reducers/filterReducer";
+import { updateMonth, updateBorough } from "../../reducers/filterReducer";
 import breakpoints from "../../utils/breakpoints";
 
 const FilterContainer = styled.div`
@@ -39,28 +35,6 @@ const SelectContainer = styled.div`
 function Filter() {
   const dispatch = useDispatch();
   const { boroughOptions, monthOptions } = useSelector(state => state.filter);
-
-  useEffect(() => {
-    async function fetchBoroughs() {
-      return await fetch(
-        "https://data.london.gov.uk/api/table/s8c9t_j4fs2?sql=SELECT DISTINCT area_name FROM dataset"
-      );
-    }
-
-    return fetchBoroughs()
-      .then(res => res.json())
-      .then(data => {
-        const options = data.rows
-          .map(row => ({
-            value: row.area_name,
-            label: row.area_name,
-          }))
-          .sort((a, b) => (a.label < b.label ? -1 : 1));
-
-        dispatch(updateBoroughOptions(options));
-      })
-      .catch(console.log);
-  }, [dispatch]);
 
   const handleUpdateMonth = selected => {
     dispatch(updateMonth(selected));
