@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createGlobalStyle } from "styled-components";
 
-import store from "./store";
+import store from "./store/store";
 
 import Dashboard from "./components/dashboard/Dashboard";
 
