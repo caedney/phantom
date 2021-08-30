@@ -6,7 +6,7 @@ import { createGlobalStyle } from "styled-components";
 
 import store from "./store/store";
 
-import Dashboard from "./components/dashboard/Dashboard";
+import App from "./containers/App/App";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -23,13 +23,13 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-function App() {
+function Root() {
   return (
     <Provider store={store}>
       <GlobalStyle />
-      <Dashboard />
+      <App />
     </Provider>
   );
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<Root />, document.getElementById("root"));
