@@ -1,4 +1,6 @@
 const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
   plugins: {
     legend: {
       labels: {
