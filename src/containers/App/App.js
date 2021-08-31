@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import fetchAllData from "../../api/fetchAllData";
-import fetchAllBoroughs from "../../api/fetchAllBoroughs";
-import Filter from "../../components/Filter/Filter";
-import Header from "../../components/Header/Header";
-import Dashboard from "../../components/Dashboard/Dashboard";
-import { updateData, updateIsLoading } from "../../reducers/dataReducer";
-import { updateBoroughOptions } from "../../reducers/filterReducer";
-import breakpoints from "../../utils/breakpoints";
+import fetchAllData from "api/fetchAllData";
+import fetchAllBoroughs from "api/fetchAllBoroughs";
+import Filter from "components/Filter/Filter";
+import Header from "components/Header/Header";
+import Dashboard from "components/Dashboard/Dashboard";
+import { updateData, updateIsLoading } from "reducers/dataReducer";
+import { updateBoroughOptions } from "reducers/filterReducer";
+import breakpoints from "utils/breakpoints";
 
 const AppContainer = styled.div`
   max-width: 1200px;

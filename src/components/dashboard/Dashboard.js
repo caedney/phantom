@@ -3,15 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import dayjs from "dayjs";
 import styled from "styled-components";
 
-import LineChart from "../../components/LineChart/LineChart";
-import Loader from "../../components/Loader/Loader";
-import breakpoints from "../../utils/breakpoints";
-import dateFormat from "../../utils/dateFormat";
+import LineChart from "components/LineChart/LineChart";
+import Loader from "components/Loader/Loader";
+import breakpoints from "utils/breakpoints";
+import dateFormat from "utils/dateFormat";
 import {
   updateLabels,
   updateNewCases,
   updateTotalCases,
-} from "../../reducers/dataReducer";
+} from "reducers/dataReducer";
 
 const DashboardContainer = styled.div`
   background-color: #ffffff;

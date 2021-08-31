@@ -2,9 +2,9 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import Select from "../Select/Select";
-import { updateMonth, updateBorough } from "../../reducers/filterReducer";
-import breakpoints from "../../utils/breakpoints";
+import Select from "components/Select/Select";
+import { updateMonth, updateBorough } from "reducers/filterReducer";
+import breakpoints from "utils/breakpoints";
 
 const FilterContainer = styled.div`
   display: flex;

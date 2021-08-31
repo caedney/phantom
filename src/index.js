@@ -4,9 +4,9 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createGlobalStyle } from "styled-components";
 
-import store from "./store/store";
+import store from "store/store";
 
-import App from "./containers/App/App";
+import App from "containers/App/App";
 
 const GlobalStyle = createGlobalStyle`
   * {

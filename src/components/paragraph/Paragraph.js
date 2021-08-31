@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import breakpoints from "../../utils/breakpoints";
+import breakpoints from "utils/breakpoints";
 
 const StyledParagraph = styled.p`
   margin-bottom: 20px;
