@@ -4,9 +4,7 @@ import styled from "styled-components";
 
 import fetchAllData from "api/fetchAllData";
 import fetchAllBoroughs from "api/fetchAllBoroughs";
-import Filter from "components/Filter/Filter";
-import Header from "components/Header/Header";
-import Dashboard from "components/Dashboard/Dashboard";
+import { Dashboard, Filter, Header } from "components";
 import { updateData, updateIsLoading } from "reducers/dataReducer";
 import { updateBoroughOptions } from "reducers/filterReducer";
 import breakpoints from "utils/breakpoints";

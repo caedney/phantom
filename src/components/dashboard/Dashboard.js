@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import dayjs from "dayjs";
 import styled from "styled-components";
 
-import LineChart from "components/LineChart/LineChart";
-import Loader from "components/Loader/Loader";
+import { LineChart, Loader } from "components";
 import breakpoints from "utils/breakpoints";
 import dateFormat from "utils/dateFormat";
 import {

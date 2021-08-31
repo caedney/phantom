@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import Select from "components/Select/Select";
+import { Select } from "components";
 import { updateMonth, updateBorough } from "reducers/filterReducer";
 import breakpoints from "utils/breakpoints";
 
