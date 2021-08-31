@@ -10,7 +10,7 @@ const reducer = {
 
 const store = configureStore({
   reducer,
-  devTools: true,
+  devTools: process.env.NODE_ENV !== "production",
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: false,
