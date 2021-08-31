@@ -39,8 +39,8 @@ function App() {
     }
 
     async function fetchBoroughs() {
-      const options = await fetchAllBoroughs();
-      dispatch(updateBoroughOptions(options));
+      const boroughs = await fetchAllBoroughs();
+      dispatch(updateBoroughOptions(boroughs));
     }
 
     fetchData();

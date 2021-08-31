@@ -49,18 +49,24 @@ function Dashboard() {
   const { borough, month, monthOptions } = useSelector(state => state.filter);
 
   const reduceCases = (cases, currentCase) => {
-    if (cases.new.length > 12) {
-      const currentDay = Number(currentCase.date.split("-")[2]) - 1;
-      cases.new[currentDay] += Number(currentCase.new_cases);
-      cases.total[currentDay] += Number(currentCase.total_cases);
-    } else {
-      const month = Number(currentCase.date.split("-")[1]) - 1;
-      const endOfMonth = dayjs(currentCase.date).daysInMonth();
-      const lastDay = `${currentCase.date.substr(0, 7)}-${endOfMonth}`;
-      cases.new[month] += Number(currentCase.new_cases);
+    const currentNewCase = Number(currentCase.new_cases);
+    const currentTotalCase = Number(currentCase.total_cases);
+    const currentDate = currentCase.date;
 
-      if (currentCase.date === lastDay) {
-        cases.total[month] += Number(currentCase.total_cases);
+    if (cases.new.length > 12) {
+      const currentDay = Number(currentDate.split("-")[2]) - 1;
+
+      cases.new[currentDay] += currentNewCase;
+      cases.total[currentDay] += currentTotalCase;
+    } else {
+      const month = Number(currentDate.split("-")[1]) - 1;
+      const endOfMonth = dayjs(currentDate).daysInMonth();
+      const lastDay = `${currentDate.substr(0, 7)}-${endOfMonth}`;
+
+      cases.new[month] += currentNewCase;
+
+      if (currentDate === lastDay) {
+        cases.total[month] += currentTotalCase;
       }
     }
 
