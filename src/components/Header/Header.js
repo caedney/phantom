@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Heading, Paragraph } from "components";
+import Heading from "components/Heading";
+import Paragraph from "components/Paragraph";
 
 const HeaderContainer = styled.div`
   text-align: center;

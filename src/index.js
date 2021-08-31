@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { createGlobalStyle } from "styled-components";
 
 import store from "store/store";
-import { App } from "containers";
+import App from "containers/App";
 
 const GlobalStyle = createGlobalStyle`
   * {
