@@ -8,7 +8,7 @@ A working example of this application has been deployed to Vercel: <a href="http
 
 Copy the `HTTPS` clone URL from the **Code** drop down using the clipboard icon, pictured below.
 
-<img src="https://vercel-smoky.vercel.app/images/git-clone.png" alt="Git Clone" style="width:50%;"/>
+<img src="https://vercel-smoky.vercel.app/images/git-clone.png" alt="Git Clone" width="50%" />
 
 In the terminal, use the command `git clone`, then paste the link from your clipboard, or copy the command and link from below:
 
