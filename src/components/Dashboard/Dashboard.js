@@ -74,22 +74,18 @@ function Dashboard() {
     if (month) {
       const daysInMonth = dayjs(month.value).daysInMonth();
 
+      currentData = currentData.filter(
+        item => month.value.split("-")[1] === item.date.split("-")[1]
+      );
+
       currentLabels = Array.from(Array(daysInMonth), (_, i) =>
         dateFormat(i + 1)
       );
     }
 
-    if (borough && month) {
-      currentData = data.filter(
-        item =>
-          borough.value === item.area_name &&
-          month.value.split("-")[1] === item.date.split("-")[1]
-      );
-    } else if (borough && !month) {
-      currentData = data.filter(item => borough.value === item.area_name);
-    } else if (month && !borough) {
-      currentData = data.filter(
-        item => month.value.split("-")[1] === item.date.split("-")[1]
+    if (borough) {
+      currentData = currentData.filter(
+        item => borough.value === item.area_name
       );
     }
 
