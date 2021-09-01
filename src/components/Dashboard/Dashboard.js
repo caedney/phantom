@@ -74,35 +74,37 @@ function Dashboard() {
   };
 
   useEffect(() => {
-    let currentData = data;
-    let currentLabels = monthOptions.map(({ label }) => label.substr(0, 3));
+    if (data.length) {
+      let currentData = data;
+      let currentLabels = monthOptions.map(({ label }) => label.substr(0, 3));
 
-    if (month) {
-      const daysInMonth = dayjs(month.value).daysInMonth();
+      if (month) {
+        const daysInMonth = dayjs(month.value).daysInMonth();
 
-      currentData = currentData.filter(
-        item => month.value.split("-")[1] === item.date.split("-")[1]
-      );
+        currentData = currentData.filter(
+          item => month.value.split("-")[1] === item.date.split("-")[1]
+        );
 
-      currentLabels = Array.from(Array(daysInMonth), (_, i) =>
-        dateFormat(i + 1)
-      );
+        currentLabels = Array.from(Array(daysInMonth), (_, i) =>
+          dateFormat(i + 1)
+        );
+      }
+
+      if (borough) {
+        currentData = currentData.filter(
+          item => borough.value === item.area_name
+        );
+      }
+
+      const reducedCases = currentData.reduce(reduceCases, {
+        new: new Array(currentLabels.length).fill(0),
+        total: new Array(currentLabels.length).fill(0),
+      });
+
+      dispatch(updateLabels(currentLabels));
+      dispatch(updateNewCases(reducedCases.new));
+      dispatch(updateTotalCases(reducedCases.total));
     }
-
-    if (borough) {
-      currentData = currentData.filter(
-        item => borough.value === item.area_name
-      );
-    }
-
-    const reducedCases = currentData.reduce(reduceCases, {
-      new: new Array(currentLabels.length).fill(0),
-      total: new Array(currentLabels.length).fill(0),
-    });
-
-    dispatch(updateLabels(currentLabels));
-    dispatch(updateNewCases(reducedCases.new));
-    dispatch(updateTotalCases(reducedCases.total));
   }, [borough, month, dispatch, monthOptions, data]);
 
   const lineChartData = {
