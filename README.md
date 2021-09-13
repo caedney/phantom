@@ -1,4 +1,4 @@
-# PHANTOM | Technical test
+# PHANTOM | Data visualisation
 
 ## Example
 
